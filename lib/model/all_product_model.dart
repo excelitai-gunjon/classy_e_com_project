@@ -1,4 +1,5 @@
 class AllProductModel {
+
   String? message;
   List<Products>? products;
 
@@ -12,6 +13,9 @@ class AllProductModel {
         products!.add(new Products.fromJson(v));
       });
     }
+  }
+  get productsList{
+    return products;
   }
 
   Map<String, dynamic> toJson() {
