@@ -1,21 +1,26 @@
 class AllProductModel {
-
   String? message;
   List<Products>? products;
 
   AllProductModel({this.message, this.products});
 
-  AllProductModel.fromJson(Map<String, dynamic> json) {
-    message = json['message'];
+  factory AllProductModel.fromJson(Map<String, dynamic> json) {
+    //message = json['message'];
     if (json['products'] != null) {
-      products = <Products>[];
-      json['products'].forEach((v) {
-        products!.add(new Products.fromJson(v));
-      });
+      var list = json['products'] as List;
+      print(list.runtimeType);
+      List<Products> productList = list.map((i) => Products.fromJson(i)).toList();
+      return AllProductModel(
+        message: json['message'],
+        products: productList,
+      );
+      // products = <Products>[];
+      // json['products'].forEach((v) {
+      //   products!.add(new Products.fromJson(v));
+      // });
+    }else{
+      throw Exception('product list is empty');
     }
-  }
-  get productsList{
-    return products;
   }
 
   Map<String, dynamic> toJson() {
@@ -26,7 +31,6 @@ class AllProductModel {
     }
     return data;
   }
-
 }
 
 class Products {
@@ -58,59 +62,59 @@ class Products {
 
   Products(
       {this.id,
-        this.brandId,
-        this.categoryId,
-        this.subcategoryId,
-        this.subsubcategoryId,
-        this.productName,
-        this.productCode,
-        this.productQty,
-        this.productTags,
-        this.productSize,
-        this.productColor,
-        this.sellingPrice,
-        this.discountPrice,
-        this.productShortDescp,
-        this.productLongDescp,
-        this.productThambnail,
-        this.hotDeals,
-        this.featured,
-        this.specialOffer,
-        this.specialDeals,
-        this.status,
-        this.productViews,
-        this.vedio,
-        this.createdAt,
-        this.updatedAt});
+      this.brandId,
+      this.categoryId,
+      this.subcategoryId,
+      this.subsubcategoryId,
+      this.productName,
+      this.productCode,
+      this.productQty,
+      this.productTags,
+      this.productSize,
+      this.productColor,
+      this.sellingPrice,
+      this.discountPrice,
+      this.productShortDescp,
+      this.productLongDescp,
+      this.productThambnail,
+      this.hotDeals,
+      this.featured,
+      this.specialOffer,
+      this.specialDeals,
+      this.status,
+      this.productViews,
+      this.vedio,
+      this.createdAt,
+      this.updatedAt});
 
-  Products.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    brandId = json['brand_id'];
-    categoryId = json['category_id'];
-    subcategoryId = json['subcategory_id'];
-    subsubcategoryId = json['subsubcategory_id'];
-    productName = json['product_name'];
-    productCode = json['product_code'];
-    productQty = json['product_qty'];
-    productTags = json['product_tags'];
-    productSize = json['product_size'];
-    productColor = json['product_color'];
-    sellingPrice = json['selling_price'];
-    discountPrice = json['discount_price'];
-    productShortDescp = json['product_short_descp'];
-    productLongDescp = json['product_long_descp'];
-    productThambnail = json['product_thambnail'];
-    hotDeals = json['hot_deals'];
-    featured = json['featured'];
-    specialOffer = json['special_offer'];
-    specialDeals = json['special_deals'];
-    status = json['status'];
-    productViews = json['product_views'];
-    vedio = json['vedio'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
+  factory Products.fromJson(Map<String, dynamic> json) {
+    return Products(id : json['id'],
+    brandId: json['brand_id'],
+    categoryId: json['category_id'],
+    subcategoryId: json['subcategory_id'],
+    subsubcategoryId: json['subsubcategory_id'],
+    productName: json['product_name'],
+    productCode: json['product_code'],
+    productQty: json['product_qty'],
+    productTags: json['product_tags'],
+    productSize: json['product_size'],
+    productColor: json['product_color'],
+    sellingPrice: json['selling_price'],
+    discountPrice: json['discount_price'],
+    productShortDescp: json['product_short_descp'],
+    productLongDescp: json['product_long_descp'],
+    productThambnail: json['product_thambnail'],
+    hotDeals: json['hot_deals'],
+    featured: json['featured'],
+    specialOffer: json['special_offer'],
+    specialDeals: json['special_deals'],
+    status: json['status'],
+    productViews: json['product_views'],
+    vedio: json['vedio'],
+    createdAt: json['created_at'],
+    updatedAt: json['updated_at'],);
   }
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson(){
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['brand_id'] = this.brandId;

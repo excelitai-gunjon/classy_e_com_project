@@ -1,8 +1,10 @@
+import 'dart:convert';
+
 import 'package:classy_ecom_project/controller/api_services.dart';
 import 'package:classy_ecom_project/model/all_product.dart';
 import 'package:classy_ecom_project/model/all_product_model.dart';
 import 'package:flutter/material.dart';
-
+import 'package:http/http.dart'as http;
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -18,17 +20,17 @@ class _HomePageState extends State<HomePage> {
           title: const Text("Product List"),
         ),
         body: FutureBuilder(
-          future: apiService.readJsonData(),
+          future: readJsonData(),
           builder: (context, data) {
             if (data.hasError) {
               print(data.error.toString());
               return Center(child: Text("${data.error}"));
             } else if (data.hasData) {
-              var items = data.data as List<AllProduct>;
+              var items = data.data as List<Products>;
               print(data.toString());
-              print(items[0].toString());
+              print(items.toString());
               return ListView.builder(
-                  itemCount: items == null ? 0 : items[0].products!.length,
+                  itemCount: items == null ? 0 : items.length,
                   itemBuilder: (context, index) {
                     return Card(
                       elevation: 5,
@@ -43,10 +45,7 @@ class _HomePageState extends State<HomePage> {
                               width: 50,
                               height: 50,
                               child: Image(
-                                image: NetworkImage(items[0]
-                                    .products![index]
-                                    .product_thambnail
-                                    .toString()),
+                                image: NetworkImage('https://classyecommerce.excelitaiportfolio.com/'+items[index].productThambnail.toString()),
                                 fit: BoxFit.fill,
                               ),
                             ),
@@ -60,38 +59,119 @@ class _HomePageState extends State<HomePage> {
                                   Padding(
                                     padding: EdgeInsets.only(left: 8, right: 8),
                                     child: Text(
-                                      items[2]
-                                          .products![index]
-                                          .product_name
-                                          .toString(),
-                                      style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold),
+                                      items[index].productName.toString(),
                                     ),
                                   ),
                                   Padding(
                                     padding: EdgeInsets.only(left: 8, right: 8),
-                                    child: Text(items[0]
-                                        .products![index]
-                                        .product_name
-                                        .toString()),
+                                    child: Text(items[index].id.toString()),
                                   ),
                                   Padding(
                                     padding: EdgeInsets.only(left: 8, right: 8),
                                     child: Text(
-                                      items[0].products![index].selling_price.toString(),
+                                      items[index].brandId.toString(),
                                     ),
                                   ),
                                   Padding(
                                     padding: EdgeInsets.only(left: 8, right: 8),
                                     child:
-                                        Text(items[0].products![index].selling_price.toString(),),
+                                        Text(items[index].categoryId.toString(),),
                                   ),
                                   Padding(
                                     padding: EdgeInsets.only(left: 8, right: 8),
                                     child:
-                                        Text(items[0].products![index].selling_price.toString(),),
-                                  )
+                                        Text(items[index].subcategoryId.toString(),),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 8, right: 8),
+                                    child:
+                                    Text(items[index].subsubcategoryId.toString(),),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 8, right: 8),
+                                    child:
+                                    Text(items[index].productCode.toString(),),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 8, right: 8),
+                                    child:
+                                    Text(items[index].productQty.toString(),),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 8, right: 8),
+                                    child:
+                                    Text(items[index].productTags.toString(),),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 8, right: 8),
+                                    child:
+                                    Text(items[index].productSize.toString(),),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 8, right: 8),
+                                    child:
+                                    Text(items[index].sellingPrice.toString(),),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 8, right: 8),
+                                    child:
+                                    Text(items[index].discountPrice.toString(),),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 8, right: 8),
+                                    child:
+                                    Text(items[index].productShortDescp.toString(),),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 8, right: 8),
+                                    child:
+                                    Text(items[index].productLongDescp.toString(),),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 8, right: 8),
+                                    child:
+                                    Text(items[index].hotDeals.toString(),),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 8, right: 8),
+                                    child:
+                                    Text(items[index].featured.toString(),),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 8, right: 8),
+                                    child:
+                                    Text(items[index].specialOffer.toString(),),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 8, right: 8),
+                                    child:
+                                    Text(items[index].specialDeals.toString(),),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 8, right: 8),
+                                    child:
+                                    Text(items[index].status.toString(),),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 8, right: 8),
+                                    child:
+                                    Text(items[index].productViews.toString(),),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 8, right: 8),
+                                    child:
+                                    Text(items[index].vedio.toString(),),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 8, right: 8),
+                                    child:
+                                    Text(items[index].createdAt.toString(),),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 8, right: 8),
+                                    child:
+                                    Text(items[index].updatedAt.toString(),),
+                                  ),
                                 ],
                               ),
                             ))
@@ -107,5 +187,20 @@ class _HomePageState extends State<HomePage> {
             }
           },
         ));
+  }
+  Future readJsonData()async{
+    final response = await http.get(Uri.parse('https://classyecommerce.excelitaiportfolio.com/api/products'));
+    if(response.statusCode==200){
+      final responseList = json.decode(response.body);
+      //AllProductModel products=responseList.map((e) => AllProductModel.fromJson(e));
+      AllProductModel products=AllProductModel.fromJson(responseList);
+      return products.products;
+      //   responseList.map((data) {
+      //   return AllProductModel.fromJson(data);
+      // }).toList();
+    }else{
+      throw Exception('Failed to load post');
+    }
+    //return ;
   }
 }

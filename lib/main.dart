@@ -1,4 +1,6 @@
+import 'package:classy_ecom_project/routes.dart';
 import 'package:classy_ecom_project/view/home_page.dart';
+import 'package:classy_ecom_project/view/sign_in/sign_in_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -25,7 +27,9 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home:  HomePage(),
+      //home:  HomePage(),
+      initialRoute: SignInScreen.routeName,
+      routes: routes,
     );
   }
 }
