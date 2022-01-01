@@ -6,7 +6,9 @@ class SignInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //backgroundColor: Colors.white,
       appBar: AppBar(
+        //backgroundColor: Colors.transparent,
         title: Text("Sign In"),
       ),
       body: Body(),

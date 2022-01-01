@@ -1,4 +1,5 @@
 import 'package:classy_ecom_project/constants.dart';
+import 'package:classy_ecom_project/controller/api_services.dart';
 import 'package:classy_ecom_project/key_board_Util.dart';
 import 'package:classy_ecom_project/size_config.dart';
 import 'package:classy_ecom_project/view/components/custom_sufix_icon.dart';
@@ -41,9 +42,9 @@ class _SignFormState extends State<SignForm> {
       child: Column(
         children: [
           buildEmailFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(height: 30),//getProportionateScreenHeight(30.0)),
           buildPasswordFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(height: 30),//getProportionateScreenHeight(30.0)),
           Row(
             children: [
               Checkbox(
@@ -68,15 +69,15 @@ class _SignFormState extends State<SignForm> {
             ],
           ),
           FormError(errors: errors),
-          SizedBox(height: getProportionateScreenHeight(20)),
+          SizedBox(height: 20),//getProportionateScreenHeight(20)),
           DefaultButton(
             text: "Continue",
-            press: () {
-              if (_formKey.currentState!.validate()) {
+            press: (){
+              if (_formKey.currentState!.validate()){
                 _formKey.currentState!.save();
                 // if all are valid then go to success screen
                 KeyboardUtil.hideKeyboard(context);
-                Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+                //Navigator.pushNamed(context, LoginSuccessScreen.routeName);
               }
             },
           ),
@@ -134,10 +135,11 @@ class _SignFormState extends State<SignForm> {
         if (value!.isEmpty) {
           addError(error: kEmailNullError);
           return "";
-        } else if (!emailValidatorRegExp.hasMatch(value)) {
-          addError(error: kInvalidEmailError);
-          return "";
         }
+        // else if (!emailValidatorRegExp.hasMatch(value)) {
+        //   addError(error: kInvalidEmailError);
+        //   return "";
+        // }
         return null;
       },
       decoration: InputDecoration(

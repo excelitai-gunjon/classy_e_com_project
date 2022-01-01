@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
           title: const Text("Product List"),
         ),
         body: FutureBuilder(
-          future: readJsonData(),
+          future: apiService.allProductApiRequest(),
           builder: (context, data) {
             if (data.hasError) {
               print(data.error.toString());
