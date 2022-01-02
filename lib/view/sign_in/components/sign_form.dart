@@ -7,6 +7,7 @@ import 'package:classy_ecom_project/key_board_Util.dart';
 import 'package:classy_ecom_project/model/all_product_model.dart';
 import 'package:classy_ecom_project/model/log_in_data_model.dart';
 import 'package:classy_ecom_project/size_config.dart';
+import 'package:classy_ecom_project/test/search_Demo.dart';
 import 'package:classy_ecom_project/view/components/custom_sufix_icon.dart';
 import 'package:classy_ecom_project/view/components/default_button.dart';
 import 'package:classy_ecom_project/view/components/from_error.dart';
@@ -98,7 +99,8 @@ class _SignFormState extends State<SignForm> {
                   print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+value);
                   //print(value);
                   //return null;
-                  Navigator.pushNamed(context, HomePage.routeName);
+                  //Navigator.pushNamed(context, HomePage.routeName);
+                  Navigator.pushNamed(context, SearchDemo.routeName);
                   //return null;
                 });
                 //Navigator.pushNamed(context, HomePage.routeName);
