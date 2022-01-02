@@ -11,17 +11,22 @@ class Body extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         child: Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: 20),//getProportionateScreenWidth(20.0)),
+          padding: EdgeInsets.symmetric(
+              horizontal: 20), //getProportionateScreenWidth(20.0)),
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: 20),//SizeConfig.screenHeight * 0.04),
+                SizedBox(height: 20), //SizeConfig.screenHeight * 0.04),
+                SizedBox(
+                  height: 200,
+                  width: 400,
+                  child: Image.asset("assets/images/classy.png",fit: BoxFit.contain,),
+                ),
                 Text(
                   "Welcome Back",
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 28,//getProportionateScreenWidth(28),
+                    fontSize: 28, //getProportionateScreenWidth(28),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -29,34 +34,28 @@ class Body extends StatelessWidget {
                   "Sign in with your email and password  \nor continue with social media",
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 20),//SizeConfig.screenHeight * 0.08),
+                SizedBox(height: 20), //SizeConfig.screenHeight * 0.08),
                 SignForm(),
-                SizedBox(height: 20),//SizeConfig.screenHeight * 0.08),
+                SizedBox(height: 20), //SizeConfig.screenHeight * 0.08),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SocalCard(
                       icon: "assets/icons/google-icon.svg",
-                      press: () {
-
-                      },
+                      press: () {},
                     ),
                     SocalCard(
                       icon: "assets/icons/facebook-2.svg",
-                      press: () {
-
-                      },
+                      press: () {},
                     ),
                     SocalCard(
                       icon: "assets/icons/twitter.svg",
-                      press: () {
-
-                      },
+                      press: () {},
                     ),
                   ],
                 ),
                 SizedBox(
-                  height: 20,//getProportionateScreenHeight(20),
+                  height: 20, //getProportionateScreenHeight(20),
                 ),
                 NoAccountText(),
               ],

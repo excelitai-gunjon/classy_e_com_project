@@ -6,6 +6,7 @@ import 'package:classy_ecom_project/model/all_product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart'as http;
 class HomePage extends StatefulWidget {
+  static String routeName = "/home_page";
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -27,8 +28,8 @@ class _HomePageState extends State<HomePage> {
               return Center(child: Text("${data.error}"));
             } else if (data.hasData) {
               var items = data.data as List<Products>;
-              print(data.toString());
-              print(items.toString());
+              // print(data.toString());
+              //print(items);
               return ListView.builder(
                   itemCount: items == null ? 0 : items.length,
                   itemBuilder: (context, index) {

@@ -1,13 +1,21 @@
+import 'dart:convert';
+
 import 'package:classy_ecom_project/constants.dart';
 import 'package:classy_ecom_project/controller/api_services.dart';
+import 'package:classy_ecom_project/http_end_point.dart';
 import 'package:classy_ecom_project/key_board_Util.dart';
+import 'package:classy_ecom_project/model/all_product_model.dart';
+import 'package:classy_ecom_project/model/log_in_data_model.dart';
 import 'package:classy_ecom_project/size_config.dart';
 import 'package:classy_ecom_project/view/components/custom_sufix_icon.dart';
 import 'package:classy_ecom_project/view/components/default_button.dart';
 import 'package:classy_ecom_project/view/components/from_error.dart';
+import 'package:classy_ecom_project/view/home_page.dart';
 import 'package:classy_ecom_project/view/sign_in/components/forgot_password_screen.dart';
 import 'package:classy_ecom_project/view/sign_in/login_success_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 class SignForm extends StatefulWidget {
   @override
@@ -42,9 +50,9 @@ class _SignFormState extends State<SignForm> {
       child: Column(
         children: [
           buildEmailFormField(),
-          SizedBox(height: 30),//getProportionateScreenHeight(30.0)),
+          SizedBox(height: 30), //getProportionateScreenHeight(30.0)),
           buildPasswordFormField(),
-          SizedBox(height: 30),//getProportionateScreenHeight(30.0)),
+          SizedBox(height: 30), //getProportionateScreenHeight(30.0)),
           Row(
             children: [
               Checkbox(
@@ -60,7 +68,9 @@ class _SignFormState extends State<SignForm> {
               Spacer(),
               GestureDetector(
                 onTap: () => Navigator.pushNamed(
-                    context, ForgotPasswordScreen.routeName),
+                  context,
+                  ForgotPasswordScreen.routeName,
+                ),
                 child: Text(
                   "Forgot Password",
                   style: TextStyle(decoration: TextDecoration.underline),
@@ -69,15 +79,51 @@ class _SignFormState extends State<SignForm> {
             ],
           ),
           FormError(errors: errors),
-          SizedBox(height: 20),//getProportionateScreenHeight(20)),
+          SizedBox(height: 20), //getProportionateScreenHeight(20)),
           DefaultButton(
             text: "Continue",
-            press: (){
-              if (_formKey.currentState!.validate()){
+            press: () async {
+              if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
                 // if all are valid then go to success screen
                 KeyboardUtil.hideKeyboard(context);
-                //Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+                final signInRes=Provider.of<ApiRequest>(context,listen: false);
+                signInRes.SignInApiRequest(
+                  {
+                    "email":email.toString(),
+                    "password":password.toString(),
+                  }
+                ).then((value){
+                  //List data=value;
+                  print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+value);
+                  //print(value);
+                  //return null;
+                  Navigator.pushNamed(context, HomePage.routeName);
+                  //return null;
+                });
+                //Navigator.pushNamed(context, HomePage.routeName);
+                // final response = await http.post(
+                //   Uri.parse(logInApi),
+                //   body:
+                //   {
+                //     "email":email.toString(),
+                //     "password":password.toString(),
+                //   },
+                // );
+                // print('Response status: ${response.statusCode}');
+                // print('Response body: ${response.body}');
+                //
+                // if (response.statusCode == 200) {
+                //   final data = jsonDecode(response.body);
+                //   LogInDataModel logindata = LogInDataModel.fromJson(data);
+                //
+                //   print(logindata.token);
+                //   Navigator.pushNamed(context, HomePage.routeName);
+                //   //return logindata; //data.map((e) => LogInDataModel.fromJson(e)).toList();
+                // } else {
+                //   // If that call was not successful, throw an error.
+                //   throw Exception('Failed to load post');
+                // }
               }
             },
           ),
@@ -135,11 +181,10 @@ class _SignFormState extends State<SignForm> {
         if (value!.isEmpty) {
           addError(error: kEmailNullError);
           return "";
+        } else if (!emailValidatorRegExp.hasMatch(value)) {
+          addError(error: kInvalidEmailError);
+          return "";
         }
-        // else if (!emailValidatorRegExp.hasMatch(value)) {
-        //   addError(error: kInvalidEmailError);
-        //   return "";
-        // }
         return null;
       },
       decoration: InputDecoration(

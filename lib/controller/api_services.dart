@@ -4,15 +4,16 @@ import 'dart:convert';
 import 'package:classy_ecom_project/http_end_point.dart';
 import 'package:classy_ecom_project/model/all_product_model.dart';
 import 'package:classy_ecom_project/model/log_in_data_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
-class ApiRequest {
+class ApiRequest with ChangeNotifier{
   // List<AllProduct> productsResponseFromJson(List<dynamic> data) {
   //   return List<AllProduct> products=data.map((e) => AllProduct.fromJson(e).toList());
   // }
   // List<AllProduct>.from(
   //     json.decode(str).map((x) => AllProduct.fromJson(x)));
-  List<Products> productList = <Products>[];
+  //List<Products> productList = <Products>[];
   Future allProductApiRequest() async {
     final response = await http.get(Uri.parse(
         'https://classyecommerce.excelitaiportfolio.com/api/products'));
@@ -52,13 +53,19 @@ class ApiRequest {
 
   Future SignInApiRequest(Map<String,dynamic> param) async {
     final response = await http.post(Uri.parse(logInApi),body: param);
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
+    // print('Response status: ${response.statusCode}');
+    // print('Response body: ${response.body}');
 
-    final data = jsonDecode(response.body);
-    if (response.statusCode == 200) {
+
+    if (response.statusCode == 200){
+      final data = jsonDecode(response.body);
       LogInDataModel logindata=LogInDataModel.fromJson(data);
-      return logindata.data;
+      //LogInDataModel list=LogInDataModel.fromJson(data);
+      //List<LogInDataModel> products=data.map((data) => LogInDataModel.fromJson(data)).toList();
+      return logindata.token.toString();//logindata.message;//data.map((e) => LogInDataModel.fromJson(e)).toList();
+    }else {
+      // If that call was not successful, throw an error.
+      throw Exception('Failed to load post');
     }
   }
 }

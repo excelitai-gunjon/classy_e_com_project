@@ -9,7 +9,7 @@ class SignInScreen extends StatelessWidget {
       //backgroundColor: Colors.white,
       appBar: AppBar(
         //backgroundColor: Colors.transparent,
-        title: Text("Sign In"),
+        title: Text("Sign In",style: TextStyle(color: Colors.black38),),
       ),
       body: Body(),
     );

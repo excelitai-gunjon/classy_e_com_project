@@ -1,4 +1,6 @@
-class LogInDataModel {
+import 'package:flutter/cupertino.dart';
+
+class LogInDataModel{
   String? message;
   String? token;
   Data? data;
@@ -9,10 +11,13 @@ class LogInDataModel {
     // message = json['message'];
     // token = json['token'];
     // data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    // var list = json['products'] as List;
+    // print(list.runtimeType);
+    // List<Products> productList = list.map((i) => Products.fromJson(i)).toList();
     return LogInDataModel(
       message: json['message'],
       token: json['token'],
-      data: json['data'] != null ? new Data.fromJson(json['data']) : null,
+      data: json['data'] != null ?Data.fromJson(json['data']) : null,
     );
   }
 
