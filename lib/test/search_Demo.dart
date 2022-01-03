@@ -1,5 +1,7 @@
+import 'package:classy_ecom_project/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 class SearchDemo extends StatefulWidget {
   static const String routeName = '/material/search';
 
@@ -217,6 +219,43 @@ class _SearchDemoSearchDelegate extends SearchDelegate<int> {
         ),
     ];
   }
+  @override
+  ThemeData appBarTheme(BuildContext context) {
+    // TODO: implement appBarTheme
+    return Theme.of(context).copyWith(
+      appBarTheme: AppBarTheme(
+        //foregroundColor: Colors.red,
+        color: kPrimaryColor,
+        elevation: 0,
+        systemOverlayStyle: SystemUiOverlayStyle.light, //Brightness.light,
+        iconTheme: IconThemeData(color: Colors.white),
+        // textTheme: TextTheme(
+        //   headline6: TextStyle(color: Color(0XFF8B8B8B), fontSize: 18,),
+        // ),
+        titleTextStyle: Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.white),
+        toolbarTextStyle: TextStyle(
+          color: Colors.black,//Color(0XFF8B8B8B),
+          fontSize: 18,
+        ),
+      ),
+      //backgroundColor: kPrimaryColor,
+      //primaryColor: Colors.redAccent,
+      primaryIconTheme: IconThemeData(
+        color: Colors.white
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        hintStyle: Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.white),
+        //fillColor: Colors.black
+      ),
+      textTheme: TextTheme(
+        bodyText1: TextStyle(color: kTextColor),
+        bodyText2: TextStyle(color: kTextColor),
+        subtitle1: TextStyle(color: Colors.white),
+        headline1: TextStyle(color: kTextColor),
+      ),
+      iconTheme: IconThemeData(color: Colors.red),
+    );
+  }
 }
 
 class _ResultCard extends StatelessWidget {
@@ -266,15 +305,15 @@ class _SuggestionList extends StatelessWidget {
       itemBuilder: (BuildContext context, int i) {
         final String suggestion = suggestions![i];
         return ListTile(
-          leading: query!.isEmpty ? const Icon(Icons.history) : const Icon(null),
+          leading: query!.isEmpty ? const Icon(Icons.history) : const Icon(Icons.arrow_forward),
           title: RichText(
             text: TextSpan(
               text: suggestion.substring(0, query!.length),
-              style: theme.textTheme.subtitle1!.copyWith(fontWeight: FontWeight.bold),
+              style: theme.textTheme.subtitle1!.copyWith(color: kTextColor,fontWeight: FontWeight.bold),
               children: <TextSpan>[
                 TextSpan(
                   text: suggestion.substring(query!.length),
-                  style: theme.textTheme.subtitle1,
+                  style: theme.textTheme.subtitle1!.copyWith(color: kTextColor),
                 ),
               ],
             ),
