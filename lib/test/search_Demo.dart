@@ -223,6 +223,11 @@ class _SearchDemoSearchDelegate extends SearchDelegate<int> {
   ThemeData appBarTheme(BuildContext context) {
     // TODO: implement appBarTheme
     return Theme.of(context).copyWith(
+      textSelectionTheme: TextSelectionThemeData(
+        cursorColor: kTextColor,
+        selectionColor: kTextColor,
+        selectionHandleColor: kTextColor,
+      ),
       appBarTheme: AppBarTheme(
         //foregroundColor: Colors.red,
         color: kPrimaryColor,
