@@ -1,35 +1,41 @@
 import 'package:flutter/cupertino.dart';
 
-class LogInDataModel{
+class LogInDataModel with ChangeNotifier{
   String? message;
   String? token;
   Data? data;
 
   LogInDataModel({this.message, this.token, this.data});
 
-  factory LogInDataModel.fromJson(Map<String, dynamic> json) {
-    // message = json['message'];
-    // token = json['token'];
-    // data = json['data'] != null ? new Data.fromJson(json['data']) : null;
-    // var list = json['products'] as List;
+  fromJson(Map<String, dynamic> json) {
+    message = json['message'];
+    token = json['token'];
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    // var list = json['data'] as List;
     // print(list.runtimeType);
-    // List<Products> productList = list.map((i) => Products.fromJson(i)).toList();
-    return LogInDataModel(
-      message: json['message'],
-      token: json['token'],
-      data: json['data'] != null ?Data.fromJson(json['data']) : null,
-    );
+    // data = list.map((i) => Data.fromJson(i)).toList();
+    notifyListeners();
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['message'] = this.message;
-    data['token'] = this.token;
-    if (this.data != null) {
-      data['data'] = this.data!.toJson();
-    }
+  get _data{
     return data;
   }
+  get _token{
+    return token;
+  }
+  get _message{
+    return message;
+  }
+
+  // Map<String, dynamic> toJson() {
+  //   final Map<String, dynamic> data = new Map<String, dynamic>();
+  //   data['message'] = this.message;
+  //   data['token'] = this.token;
+  //   if (this.data != null) {
+  //     data['data'] = this.data!.toJson();
+  //   }
+  //   return data;
+  // }
 }
 
 class Data {

@@ -1,0 +1,69 @@
+{
+  "message": "All Categories",
+  "categories": [
+    {
+      "id": 1,
+      "category_name": "Fashion",
+      "category_slug_name": "fashion",
+      "category_icon": "Fashion",
+      "created_at": null,
+      "updated_at": "2022-01-04T07:05:07.000000Z"
+    },
+    {
+      "id": 2,
+      "category_name": "Electronics",
+      "category_slug_name": "electronics",
+      "category_icon": "electronics",
+      "created_at": null,
+      "updated_at": "2021-10-27T07:46:43.000000Z"
+    },
+    {
+      "id": 3,
+      "category_name": "Sports",
+      "category_slug_name": "sports",
+      "category_icon": "sports",
+      "created_at": null,
+      "updated_at": "2021-10-27T07:46:49.000000Z"
+    },
+    {
+      "id": 4,
+      "category_name": "Mobile",
+      "category_slug_name": "mobile",
+      "category_icon": "mobile",
+      "created_at": null,
+      "updated_at": "2021-10-27T07:47:16.000000Z"
+    },
+    {
+      "id": 5,
+      "category_name": "Laptop",
+      "category_slug_name": "laptop",
+      "category_icon": "laptop",
+      "created_at": null,
+      "updated_at": "2021-10-27T07:47:23.000000Z"
+    },
+    {
+      "id": 6,
+      "category_name": "Fruit",
+      "category_slug_name": "fruit",
+      "category_icon": "fruit",
+      "created_at": null,
+      "updated_at": "2021-10-27T07:47:30.000000Z"
+    },
+    {
+      "id": 7,
+      "category_name": "Motor Bike",
+      "category_slug_name": "motor-bike",
+      "category_icon": "bike",
+      "created_at": null,
+      "updated_at": "2021-10-27T07:47:36.000000Z"
+    },
+    {
+      "id": 8,
+      "category_name": "Shoes",
+      "category_slug_name": "shoes",
+      "category_icon": "shoes",
+      "created_at": null,
+      "updated_at": null
+    }
+  ]
+}

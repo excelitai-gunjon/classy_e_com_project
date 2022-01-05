@@ -93,10 +93,15 @@ class _SignFormState extends State<SignForm> {
                   {
                     "email":email.toString(),
                     "password":password.toString(),
-                  }
+                  },
+                  context,
                 ).then((value){
-                  //List data=value;
-                  print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+value);
+                  final loginData=Provider.of<LogInDataModel>(context,listen: false);
+                  //print(value.+"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+                  print(loginData.data!.profilePhotoUrl.toString()+">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+                  //List<LogInDataModel> items=value as List<LogInDataModel>;
+                  //LogInDataModel item=LogInDataModel.fromJson(value);
+                  //print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+value[0].email);
                   //print(value);
                   //return null;
                   //Navigator.pushNamed(context, HomePage.routeName);

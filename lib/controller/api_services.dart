@@ -6,6 +6,7 @@ import 'package:classy_ecom_project/model/all_product_model.dart';
 import 'package:classy_ecom_project/model/log_in_data_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 class ApiRequest with ChangeNotifier{
   // List<AllProduct> productsResponseFromJson(List<dynamic> data) {
@@ -51,19 +52,22 @@ class ApiRequest with ChangeNotifier{
 //     );
 //   }
 
-  Future SignInApiRequest(Map<String,dynamic> param) async {
+  Future SignInApiRequest(Map<String,dynamic> param,BuildContext context) async {
     final response = await http.post(Uri.parse(logInApi),body: param);
     // print('Response status: ${response.statusCode}');
     // print('Response body: ${response.body}');
 
 
     if (response.statusCode == 200){
-      final data = jsonDecode(response.body);
-      LogInDataModel logindata=LogInDataModel.fromJson(data);
+      final dataList = jsonDecode(response.body);
+      //LogInDataModel logindata=LogInDataModel().fromJson(dataList);
+      final loginData=Provider.of<LogInDataModel>(context,listen: false);
+      loginData.fromJson(dataList);
       //LogInDataModel list=LogInDataModel.fromJson(data);
-      //List<LogInDataModel> products=data.map((data) => LogInDataModel.fromJson(data)).toList();
-      return logindata.token.toString();//logindata.message;//data.map((e) => LogInDataModel.fromJson(e)).toList();
-    }else {
+      //List<LogInDataModel> logInDataList=dataList.map((data) => LogInDataModel.fromJson(data)).toList();
+      print(loginData.message.toString());
+      return loginData;//logindata.message;//data.map((e) => LogInDataModel.fromJson(e)).toList();
+    }else{
       // If that call was not successful, throw an error.
       throw Exception('Failed to load post');
     }

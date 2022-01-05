@@ -1,4 +1,5 @@
 import 'package:classy_ecom_project/controller/api_services.dart';
+import 'package:classy_ecom_project/model/log_in_data_model.dart';
 import 'package:classy_ecom_project/routes.dart';
 import 'package:classy_ecom_project/theme.dart';
 import 'package:classy_ecom_project/view/home_page.dart';
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: ApiRequest()),
+        ChangeNotifierProvider.value(value: LogInDataModel()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -1,7 +1,9 @@
 import 'package:classy_ecom_project/constants.dart';
+import 'package:classy_ecom_project/model/log_in_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 class SearchDemo extends StatefulWidget {
   static const String routeName = '/material/search';
 
@@ -14,9 +16,10 @@ class _SearchDemoState extends State<SearchDemo> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   int? _lastIntegerSelected;
-
+  //final loginData=Provider.of<LogInDataModel>(context);
   @override
   Widget build(BuildContext context) {
+    final loginData=Provider.of<LogInDataModel>(context,listen: false);
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
@@ -102,14 +105,15 @@ class _SearchDemoState extends State<SearchDemo> {
       drawer: Drawer(
         child: Column(
           children: <Widget>[
-            const UserAccountsDrawerHeader(
-              accountName: Text('Peter Widget'),
-              accountEmail: Text('peter.widget@example.com'),
+             UserAccountsDrawerHeader(
+              accountName: Text(loginData.data!.name.toString()),
+              accountEmail: Text(loginData.data!.email.toString()),
               currentAccountPicture: CircleAvatar(
-                backgroundImage: AssetImage(
-                  'people/square/peter.png',
-                  package: 'flutter_gallery_assets',
-                ),
+                backgroundImage: NetworkImage(loginData.data!.profilePhotoUrl.toString()),
+                // AssetImage(
+                //   'people/square/peter.png',
+                //   package: 'flutter_gallery_assets',
+                // ),
               ),
               margin: EdgeInsets.zero,
             ),
@@ -117,9 +121,29 @@ class _SearchDemoState extends State<SearchDemo> {
               context: context,
               // DrawerHeader consumes top MediaQuery padding.
               removeTop: true,
-              child: const ListTile(
-                leading: Icon(Icons.payment),
-                title: Text('Placeholder'),
+              child: Column(
+                children: [
+                  ListTile(
+                    leading: Icon(Icons.payment),
+                    title: Text('Placeholder'),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.payment),
+                    title: Text('Placeholder'),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.payment),
+                    title: Text('Placeholder'),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.payment),
+                    title: Text('Placeholder'),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.payment),
+                    title: Text('Placeholder'),
+                  ),
+                ],
               ),
             ),
           ],

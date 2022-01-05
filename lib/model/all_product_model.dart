@@ -1,4 +1,6 @@
-class AllProductModel {
+import 'package:flutter/cupertino.dart';
+
+class AllProductModel{
   String? message;
   List<Products>? products;
 
