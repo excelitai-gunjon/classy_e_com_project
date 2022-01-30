@@ -1,4 +1,6 @@
 import 'package:classy_ecom_project/constants.dart';
+import 'package:classy_ecom_project/controller/api_services.dart';
+import 'package:classy_ecom_project/model/all_product_model.dart';
 import 'package:classy_ecom_project/model/log_in_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,6 +21,7 @@ class _SearchDemoState extends State<SearchDemo> {
   //final loginData=Provider.of<LogInDataModel>(context);
   @override
   Widget build(BuildContext context) {
+    final apiService = ApiRequest();
     final loginData=Provider.of<LogInDataModel>(context,listen: false);
     return Scaffold(
       key: _scaffoldKey,
@@ -59,40 +62,180 @@ class _SearchDemoState extends State<SearchDemo> {
                   ? Icons.more_horiz
                   : Icons.more_vert,
             ),
-            onPressed: () { },
+            onPressed: () {
+
+            },
           ),
         ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            MergeSemantics(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const <Widget>[
-                      Text('Press the '),
-                      Tooltip(
-                        message: 'search',
-                        child: Icon(
-                          Icons.search,
-                          size: 18.0,
-                        ),
+      body: FutureBuilder(
+        future: apiService.allProductApiRequest(),
+        builder: (context, data) {
+          if (data.hasError) {
+            print(data.error.toString());
+            return Center(child: Text("${data.error}"));
+          }
+          else if (data.hasData) {
+            var items = data.data as List<Products>;
+            // print(data.toString());
+            //print(items);
+            return ListView.builder(
+                itemCount: items == null ? 0 : items.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    elevation: 5,
+                    margin: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    child: Container(
+                      padding: EdgeInsets.all(8),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 50,
+                            height: 50,
+                            child: Image(
+                              image: NetworkImage('https://classyecommerce.excelitaiportfolio.com/'+items[index].productThambnail.toString()),
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                          Expanded(
+                              child: Container(
+                                padding: EdgeInsets.only(bottom: 8),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 8, right: 8),
+                                      child: Text(
+                                        items[index].productName.toString(),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 8, right: 8),
+                                      child: Text(items[index].id.toString()),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 8, right: 8),
+                                      child: Text(
+                                        items[index].brandId.toString(),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 8, right: 8),
+                                      child:
+                                      Text(items[index].categoryId.toString(),),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 8, right: 8),
+                                      child:
+                                      Text(items[index].subcategoryId.toString(),),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 8, right: 8),
+                                      child:
+                                      Text(items[index].subsubcategoryId.toString(),),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 8, right: 8),
+                                      child:
+                                      Text(items[index].productCode.toString(),),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 8, right: 8),
+                                      child:
+                                      Text(items[index].productQty.toString(),),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 8, right: 8),
+                                      child:
+                                      Text(items[index].productTags.toString(),),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 8, right: 8),
+                                      child:
+                                      Text(items[index].productSize.toString(),),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 8, right: 8),
+                                      child:
+                                      Text(items[index].sellingPrice.toString(),),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 8, right: 8),
+                                      child:
+                                      Text(items[index].discountPrice.toString(),),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 8, right: 8),
+                                      child:
+                                      Text(items[index].productShortDescp.toString(),),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 8, right: 8),
+                                      child:
+                                      Text(items[index].productLongDescp.toString(),),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 8, right: 8),
+                                      child:
+                                      Text(items[index].hotDeals.toString(),),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 8, right: 8),
+                                      child:
+                                      Text(items[index].featured.toString(),),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 8, right: 8),
+                                      child:
+                                      Text(items[index].specialOffer.toString(),),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 8, right: 8),
+                                      child:
+                                      Text(items[index].specialDeals.toString(),),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 8, right: 8),
+                                      child:
+                                      Text(items[index].status.toString(),),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 8, right: 8),
+                                      child:
+                                      Text(items[index].productViews.toString(),),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 8, right: 8),
+                                      child:
+                                      Text(items[index].vedio.toString(),),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 8, right: 8),
+                                      child:
+                                      Text(items[index].createdAt.toString(),),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 8, right: 8),
+                                      child:
+                                      Text(items[index].updatedAt.toString(),),
+                                    ),
+                                  ],
+                                ),
+                              ))
+                        ],
                       ),
-                      Text(' icon in the AppBar'),
-                    ],
-                  ),
-                  const Text('and search for an integer between 0 and 100,000.'),
-                ],
-              ),
-            ),
-            const SizedBox(height: 64.0),
-            Text('Last selected integer: ${_lastIntegerSelected ?? 'NONE' }.'),
-          ],
-        ),
+                    ),
+                  );
+                });
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
       ),
       floatingActionButton: FloatingActionButton.extended(
         tooltip: 'Back', // Tests depend on this label to exit the demo.
